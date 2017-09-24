@@ -1,5 +1,6 @@
 package railroad;
 
-class Semaphore {
+class Semaphore 
+{
 
 }

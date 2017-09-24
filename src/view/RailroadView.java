@@ -19,10 +19,10 @@ public class RailroadView extends JPanel implements Observer
 {
 	private BufferedImage bgImage;
 	
-	private final int _leftInclinationX = 180;
+	private final int _leftInclinationX = 200;
 	private final int _leftBridgeX = 400;
 	
-	private final int _rightInclinationX = 1180;
+	private final int _rightInclinationX = 1350;
 	private final int _rightBridgeX = 990;
 	
 	private Color _leftSemaphore;

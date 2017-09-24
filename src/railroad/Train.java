@@ -1,5 +1,6 @@
 package railroad;
 
-class Train {
-
+class Train 
+{
+	
 }
