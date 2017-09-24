@@ -73,7 +73,7 @@ public class RailroadView extends JPanel
 		
 		Graphics2D g2d = (Graphics2D) g;
 		
-		/***************** Left Traffic Signal ***********************/
+		/********************* Left Semaphore ***********************/
 		
 		g2d.setPaint(Color.BLACK);
 		g2d.fillRect(_leftInclinationX, 100, 35, 70);
@@ -83,7 +83,7 @@ public class RailroadView extends JPanel
 		
 		/*************************************************************/
 		
-		/***************** Right Traffic Signal **********************/
+		/********************* Right Semaphore **********************/
 		
 		g2d.setPaint(Color.BLACK);
 		g2d.fillRect(_rightInclinationX, 100, 35, 70);

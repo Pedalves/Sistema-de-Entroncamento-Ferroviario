@@ -1,0 +1,5 @@
+package railroad;
+
+class Train {
+
+}
