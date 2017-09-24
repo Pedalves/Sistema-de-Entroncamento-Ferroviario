@@ -8,7 +8,7 @@ public class Facade
 	
 	private Facade()
 	{
-		_controller = new Controller();
+		_controller = Controller.getInstance();
 	}
 
 	static public Facade getInstance()
