@@ -1,12 +1,18 @@
 package railroad;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
-class Controller 
+import javax.swing.Timer;
+
+class Controller
 {
 	static private Controller _controller;
 	private List<Train> _trains;
+	private Observer _observer;
 		
 	private Controller()
 	{
@@ -24,23 +30,27 @@ class Controller
 	}
 	
 	public void Simulate()
-	{
-		_trains.add(new Train(true, 0));
-		_trains.add(new Train(false, 1));
-		int n = 300;
-//		while(n>0)
-//		{
-			for(Train t : _trains)
-			{
-				t.Move();
-			}
-			
-			try {
-			    Thread.sleep(20);                 
-			} catch(InterruptedException ex) {
-			    System.out.print("Error: sleep()");//Thread.currentThread().interrupt();
-			}
-			n--;
-//		}
+	{	
+		_trains.add(new Train(true, 0,_observer));
+		_trains.add(new Train(false, 1,_observer));
+		
+		ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+        		for(Train t : _trains)
+        		{
+        			t.Move();
+        		}
+            }
+        };
+        Timer timer = new Timer(500 ,taskPerformer);
+        timer.setRepeats(true);
+        timer.start();
 	}
+	
+	public void setObserver(Observer observer)
+	{
+		_observer = observer;
+	}
+	
+	
 }

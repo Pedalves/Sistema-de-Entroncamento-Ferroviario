@@ -24,11 +24,11 @@ public class RailroadView extends JPanel implements Observer
 {
 	private BufferedImage bgImage;
 	
-	private final int _leftInclinationX = 200;
-	private final int _leftBridgeX = 400;
+	private final int _leftInclinationX = 145;
+	private final int _leftBridgeX = 320;
 	
-	private final int _rightInclinationX = 1350;
-	private final int _rightBridgeX = 990;
+	private final int _rightInclinationX = 940;
+	private final int _rightBridgeX = 790;
 	
 	private Color _leftSemaphore;
 	private Color _rightSemaphore;
@@ -74,7 +74,7 @@ public class RailroadView extends JPanel implements Observer
 		_rightSemaphore = Color.GREEN;
 		
 		try {
-			this.bgImage = ImageIO.read(new File("resources\\Trem.jpg"));
+			this.bgImage = ImageIO.read(new File("resources\\Trem2.png"));
 		} catch (IOException e) {
 			System.out.println("ERRO ao carregar imagem");
 		}
@@ -82,11 +82,11 @@ public class RailroadView extends JPanel implements Observer
 		JButton simulateButton = new JButton("Simular");
 		simulateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		simulateButton.addActionListener(e -> {
-			Facade.getInstance(null).Simulate();
+			Facade.getInstance().Simulate();
 		});
 		add(simulateButton);
 		
-		Facade.getInstance(this);
+		Facade.getInstance().setObserver(this);
 		_trainPositions = new HashMap<Integer, int[]>();
 	}
 	
@@ -94,7 +94,7 @@ public class RailroadView extends JPanel implements Observer
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+		g.drawImage(bgImage, 0, 0, null);
 		
 		Graphics2D g2d = (Graphics2D) g;
 		

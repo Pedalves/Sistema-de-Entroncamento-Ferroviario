@@ -12,7 +12,7 @@ public class MainWindow
 	{				
 		_window = new JFrame("Sistema de Entrocamento Ferroviario");
 		
-		_window.setSize(1575, 787);
+		_window.setSize(1078, 539);
 		_window.setLocationRelativeTo(null);
 		_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		

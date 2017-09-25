@@ -1,5 +1,7 @@
 package railroad;
 
+import java.util.Observer;
+
 import view.RailroadView;
 
 public class Facade 
@@ -7,31 +9,29 @@ public class Facade
 	static private Facade _facade;
 	
 	private Controller _controller;
-	private RailroadView _view;
 	
-	private Facade(RailroadView view)
+	private Facade()
 	{
 		_controller = Controller.getInstance();
-		_view = view;
 	}
 
-	static public Facade getInstance(RailroadView view)
+	static public Facade getInstance()
 	{
 		if(_facade == null)
 		{
-			_facade = new Facade(view);
+			_facade = new Facade();
 		}
 		
 		return _facade;
 	}
 	
-	public RailroadView getView()
-	{
-		return _view;
-	}
-	
 	public void Simulate()
 	{
 		_controller.Simulate();
+	}
+	
+	public void setObserver(Observer observer)
+	{
+		_controller.setObserver(observer);
 	}
 }
