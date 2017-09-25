@@ -29,4 +29,9 @@ public class Facade
 	{
 		return _view;
 	}
+	
+	public void Simulate()
+	{
+		_controller.Simulate();
+	}
 }

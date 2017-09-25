@@ -18,7 +18,7 @@ class Train extends Observable
 	
 	public Train(boolean right, Integer id)
 	{
-		//addObserver(Facade.getInstance(null).getView());
+		addObserver(Facade.getInstance(null).getView());
 		_id = id;
 		_pos = new int[2];
 		_right = right;
@@ -74,6 +74,7 @@ class Train extends Observable
 		
 		Object args[] = {(Object) 0, (Object) _id, (Object)_pos}; 
 		
+		setChanged();
 		notifyObservers(args);
 	}
 }

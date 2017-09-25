@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -14,6 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import railroad.Facade;
@@ -76,6 +78,13 @@ public class RailroadView extends JPanel implements Observer
 		} catch (IOException e) {
 			System.out.println("ERRO ao carregar imagem");
 		}
+		
+		JButton simulateButton = new JButton("Simular");
+		simulateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		simulateButton.addActionListener(e -> {
+			Facade.getInstance(null).Simulate();
+		});
+		add(simulateButton);
 		
 		Facade.getInstance(this);
 		_trainPositions = new HashMap<Integer, int[]>();
