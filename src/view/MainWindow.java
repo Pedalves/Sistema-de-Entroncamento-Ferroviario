@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.JFrame;
 
+import railroad.Facade;
+
 public class MainWindow
 {
 	JFrame _window;

@@ -9,11 +9,14 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import railroad.Facade;
 
 public class RailroadView extends JPanel implements Observer
 {
@@ -28,6 +31,8 @@ public class RailroadView extends JPanel implements Observer
 	private Color _leftSemaphore;
 	private Color _rightSemaphore;
 	
+	private HashMap<Integer, int[]> _trainPositions;
+		
 	public RailroadView()
 	{
 		addMouseListener(new MouseListener() {
@@ -71,6 +76,9 @@ public class RailroadView extends JPanel implements Observer
 		} catch (IOException e) {
 			System.out.println("ERRO ao carregar imagem");
 		}
+		
+		Facade.getInstance(this);
+		_trainPositions = new HashMap<Integer, int[]>();
 	}
 	
 	@Override
@@ -100,11 +108,42 @@ public class RailroadView extends JPanel implements Observer
 		g2d.fill(new Ellipse2D.Double(_rightInclinationX, 120, 34, 34));
 		
 		/*************************************************************/
+		
+		/********************* Trains **********************/
+		
+		for(Integer t : _trainPositions.keySet())
+		{
+			g2d.setPaint(Color.BLUE);			
+			g2d.fill(new Ellipse2D.Double(_trainPositions.get(t)[0], _trainPositions.get(t)[1], 34, 34));
+		}
+		
+		/*************************************************************/
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+	public void update(Observable o, Object arg) 
+	{
+		Object args[] = (Object[])arg;
 		
+		switch((int)args[0])
+		{
+		case 0:
+			Integer n = (Integer)args[1];
+			int[] pos = (int[])args[2];
+			if(_trainPositions.containsKey(n))
+			{
+				_trainPositions.get(n)[0] = pos[0];
+				_trainPositions.get(n)[1] = pos[1];
+			}
+			else
+			{
+				_trainPositions.put(n, pos);
+			}
+			break;
+		default:
+			break;
+		}
+		
+		repaint();
 	}
 }
