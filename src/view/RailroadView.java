@@ -34,6 +34,7 @@ public class RailroadView extends JPanel implements Observer
 	private Color _rightSemaphore;
 	
 	private HashMap<Integer, int[]> _trainPositions;
+	private HashMap<Integer, Color> _trainColors;
 		
 	public RailroadView()
 	{
@@ -88,6 +89,7 @@ public class RailroadView extends JPanel implements Observer
 		
 		Facade.getInstance().setObserver(this);
 		_trainPositions = new HashMap<Integer, int[]>();
+		_trainColors = new HashMap<Integer, Color>();
 	}
 	
 	@Override
@@ -122,7 +124,7 @@ public class RailroadView extends JPanel implements Observer
 		
 		for(Integer t : _trainPositions.keySet())
 		{
-			g2d.setPaint(Color.BLUE);			
+			g2d.setPaint(_trainColors.get(t));			
 			g2d.fill(new Ellipse2D.Double(_trainPositions.get(t)[0], _trainPositions.get(t)[1], 34, 34));
 		}
 		
@@ -139,15 +141,11 @@ public class RailroadView extends JPanel implements Observer
 		case 0:
 			Integer n = (Integer)args[1];
 			int[] pos = (int[])args[2];
-			if(_trainPositions.containsKey(n))
-			{
-				_trainPositions.get(n)[0] = pos[0];
-				_trainPositions.get(n)[1] = pos[1];
-			}
-			else
-			{
-				_trainPositions.put(n, pos);
-			}
+			Color color = (Color)args[3];
+
+			_trainPositions.put(n, pos);
+			_trainColors.put(n, color);
+			
 			break;
 		default:
 			break;

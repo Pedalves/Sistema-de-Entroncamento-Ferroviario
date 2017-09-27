@@ -1,5 +1,6 @@
 package railroad;
 
+import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -74,7 +75,7 @@ class Train extends Observable
 			}
 		}
 		
-		Object args[] = {(Object) 0, (Object) _id, (Object)_pos}; 
+		Object args[] = {(Object) 0, (Object) _id, (Object) _pos, _right?(Object) Color.BLACK:(Object) Color.RED}; 
 		
 		setChanged();
 		notifyObservers(args);
