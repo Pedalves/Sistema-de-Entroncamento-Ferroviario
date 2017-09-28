@@ -13,11 +13,13 @@ class Train extends Observable
 	private boolean _right;
 	private boolean _normalMove;
 	
-	private final int _leftInclinationX = 140;
+	private final int _leftInclinationX = 137;
 	private final int _rightInclinationX = 940;
 	
 	private final int _leftBridgeX = 305;
 	private final int _rightBridgeX = 790;
+	
+	private final int _angle = 73;
 	
 	public Train(boolean right, Integer id, Observer observer)
 	{
@@ -28,12 +30,12 @@ class Train extends Observable
 		if(_right)
 		{
 			_pos[0] = 0;
-			_pos[1] = 223;
+			_pos[1] = 214;
 		}
 		else
 		{
 			_pos[0] = 1040;
-			_pos[1] = 223;
+			_pos[1] = 221;
 		}
 		_normalMove = true;
 		Move();
@@ -58,8 +60,8 @@ class Train extends Observable
 			}
 			else
 			{
-				_pos[0] += _speed*Math.sin(Math.toRadians(73));
-				_pos[1] += _speed*Math.cos(Math.toRadians(73));
+				_pos[0] += _speed*Math.sin(Math.toRadians(_angle));
+				_pos[1] += _speed*Math.cos(Math.toRadians(_angle));
 			}
 		}
 		else
@@ -70,8 +72,8 @@ class Train extends Observable
 			}
 			else
 			{
-				_pos[0] -= _speed*Math.sin(Math.toRadians(73));
-				_pos[1] += _speed*Math.cos(Math.toRadians(73));
+				_pos[0] -= _speed*Math.sin(Math.toRadians(_angle));
+				_pos[1] += _speed*Math.cos(Math.toRadians(_angle));
 			}
 		}
 		
