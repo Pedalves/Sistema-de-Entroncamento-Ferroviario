@@ -3,6 +3,7 @@ package railroad;
 public abstract class SemaphoreState 
 {
 	static private Controller _controller;
+	protected int count = 1;
 	
 	public static SemaphoreState getInitialState(Controller c)
 	{
