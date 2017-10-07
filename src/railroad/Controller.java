@@ -31,15 +31,18 @@ class Controller
 	
 	public void Simulate()
 	{	
-		_trains.add(new Train(true, 0,_observer));
-		_trains.add(new Train(false, 1,_observer));
+		_trains.add(new Train(true, _trains.size(),_observer));
+		_trains.add(new Train(false, _trains.size(),_observer));
 		
 		ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+//            	System.out.println("Qtd trem: " + _trains.size());
         		for(Train t : _trains)
         		{
         			t.Move();
         		}
+//            	_trains.get(_trains.size()-2).Move();
+//            	_trains.get(_trains.size()-1).Move();
             }
         };
         Timer timer = new Timer(100 ,taskPerformer);

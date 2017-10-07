@@ -38,11 +38,12 @@ class Train extends Observable
 			_pos[1] = 221;
 		}
 		_normalMove = true;
-		Move();
+//		Move();
 	}
 	
 	public void Move()
 	{
+//    	System.out.println("Speed: " + _speed);
 		if((_pos[0] > _leftInclinationX && _pos[0] < _leftBridgeX) || (_pos[0] > _rightBridgeX && _pos[0] < _rightInclinationX))
 		{
 			_normalMove = false;
@@ -56,7 +57,9 @@ class Train extends Observable
 		{
 			if(_normalMove)
 			{
+				int temp = _pos[0];
 				_pos[0] += _speed;
+				System.out.println("Diff pos: " + (_pos[0] - temp));
 			}
 			else
 			{
