@@ -24,12 +24,14 @@ public class SemaphoreOpenOpen extends SemaphoreState
 	@Override
 	public SemaphoreState CloseLeft()
 	{
+		System.out.println("Fechando esquerda");
 		return new SemaphoreClosedOpen();
 	}
 
 	@Override
 	public SemaphoreState CloseRight() 
 	{
+		System.out.println("Fechando direita");
 		return new SemaphoreOpenClosed();
 	}
 

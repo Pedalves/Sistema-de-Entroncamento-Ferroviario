@@ -18,6 +18,7 @@ public class SemaphoreOpenClosed extends SemaphoreState
 	@Override
 	public SemaphoreState OpenRight()
 	{
+		System.out.println("Abrindo direita");
 		return new SemaphoreOpenOpen();
 	}
 

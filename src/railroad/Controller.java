@@ -127,6 +127,13 @@ class Controller implements Observer
 					_semaphoreState = st;
 				}
 				break;
+			case 5:
+				Train t = (Train)args[1];
+//				if(_trains.contains(t))
+//				{
+//					_trains.remove(t);
+//				}
+				break;
 			default:
 				break;
 		}		
