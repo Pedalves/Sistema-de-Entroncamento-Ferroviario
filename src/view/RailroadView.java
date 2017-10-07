@@ -154,6 +154,11 @@ public class RailroadView extends JPanel implements Observer
 				_trainColors.put(n, color);
 				
 				break;
+			case 6:
+				_leftSemaphore = (Color)args[1];
+				_rightSemaphore = (Color)args[2];
+				
+				break;
 			default:
 				break;
 		}

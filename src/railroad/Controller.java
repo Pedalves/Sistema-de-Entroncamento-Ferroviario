@@ -15,6 +15,7 @@ class Controller implements Observer
 	private List<Train> _trains;
 	private List<Observer> _observers;
 	private SemaphoreState _semaphoreState;
+	private Semaphore _semaphore;
 		
 	private Controller()
 	{
@@ -23,7 +24,7 @@ class Controller implements Observer
 		
 		_observers = new ArrayList<Observer>();
 		_observers.add(this);
-		
+				
 		setupTimer();
 	}
 
@@ -85,13 +86,14 @@ class Controller implements Observer
 	public void setObserver(Observer observer)
 	{
 		_observers.add(observer);
+		_semaphore = Semaphore.getInstance(observer);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) 
 	{
 		Object args[] = (Object[])arg;
-		SemaphoreState st;
+		SemaphoreState st = null;
 		
 		switch((int)args[0])
 		{
@@ -137,6 +139,11 @@ class Controller implements Observer
 			default:
 				break;
 		}		
+		
+		if(st != null)
+		{
+			_semaphore.stateChanged(_semaphoreState.Status());
+		}
 	}
 	
 	
