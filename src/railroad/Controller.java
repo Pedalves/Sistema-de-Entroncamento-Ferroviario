@@ -17,6 +17,8 @@ class Controller
 	private Controller()
 	{
 		_trains = new ArrayList<Train>();
+		
+		setupTimer();
 	}
 
 	static public Controller getInstance()
@@ -29,25 +31,25 @@ class Controller
 		return _controller;
 	}
 	
-	public void Simulate()
-	{	
-		_trains.add(new Train(true, _trains.size(),_observer));
-		_trains.add(new Train(false, _trains.size(),_observer));
-		
+	void setupTimer()
+	{
 		ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-//            	System.out.println("Qtd trem: " + _trains.size());
         		for(Train t : _trains)
         		{
         			t.Move();
         		}
-//            	_trains.get(_trains.size()-2).Move();
-//            	_trains.get(_trains.size()-1).Move();
             }
         };
         Timer timer = new Timer(100 ,taskPerformer);
         timer.setRepeats(true);
         timer.start();
+	}
+	
+	public void Simulate()
+	{	
+		_trains.add(new Train(true, _trains.size(),_observer));
+		_trains.add(new Train(false, _trains.size(),_observer));		
 	}
 	
 	public void setObserver(Observer observer)
