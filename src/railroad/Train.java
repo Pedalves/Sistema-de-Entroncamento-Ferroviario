@@ -1,6 +1,7 @@
 package railroad;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,12 +22,21 @@ class Train extends Observable
 	
 	private final int _angle = 73;
 	
-	public Train(boolean right, Integer id, Observer observer)
+	private boolean _enter;
+	private boolean _end;
+	
+	private boolean _checkingPermission;
+	
+	public Train(boolean right, Integer id, List<Observer> observers)
 	{
-		addObserver(observer);
+		for(Observer o : observers)
+		{
+			addObserver(o);	
+		}
 		_id = id;
 		_pos = new int[2];
 		_right = right;
+		
 		if(_right)
 		{
 			_pos[0] = 0;
@@ -37,12 +47,17 @@ class Train extends Observable
 			_pos[0] = 1040;
 			_pos[1] = 221;
 		}
+		
 		_normalMove = true;
+		_enter = _end = _checkingPermission = false;
 	}
 	
 	public void Move()
 	{
-		if((_pos[0] > _leftInclinationX && _pos[0] < _leftBridgeX) || (_pos[0] > _rightBridgeX && _pos[0] < _rightInclinationX))
+		boolean leftInclination = (_pos[0] > _leftInclinationX && _pos[0] < _leftBridgeX);
+		boolean rightInclination = (_pos[0] > _rightBridgeX && _pos[0] < _rightInclinationX);
+		
+		if(leftInclination || rightInclination)
 		{
 			_normalMove = false;
 		}
@@ -53,27 +68,88 @@ class Train extends Observable
 		
 		if(_right)
 		{
+			if(_pos[0] < _leftInclinationX && _pos[0] > _leftInclinationX - 100)
+			{
+				_checkingPermission = true;
+			}
+			else
+			{
+				_checkingPermission = false;
+			}
+			
 			if(_normalMove)
 			{
-				int temp = _pos[0];
 				_pos[0] += _speed;
+				
+				if(_enter && _end)
+				{
+					Object args[] = {(Object) 2}; 
+					
+					setChanged();
+					notifyObservers(args);
+				}
 			}
 			else
 			{
 				_pos[0] += _speed*Math.sin(Math.toRadians(_angle));
 				_pos[1] += _speed*Math.cos(Math.toRadians(_angle));
+				
+				if(leftInclination && !_enter)
+				{
+					_enter = true;
+
+					Object args[] = {(Object) 1}; 
+					
+					setChanged();
+					notifyObservers(args);
+				}
+				if(rightInclination && !_end)
+				{
+					_end = true;
+				}
 			}
 		}
 		else
 		{
+			if(_pos[0] > _rightInclinationX && _pos[0] < _rightInclinationX + 100)
+			{
+				_checkingPermission = true;
+			}
+			else
+			{
+				_checkingPermission = false;
+			}
+			
 			if(_normalMove)
 			{
 				_pos[0] -= _speed;
+				
+				if(_enter && _end)
+				{
+					Object args[] = {(Object) 4}; 
+					
+					setChanged();
+					notifyObservers(args);
+				}
 			}
 			else
 			{
 				_pos[0] -= _speed*Math.sin(Math.toRadians(_angle));
 				_pos[1] += _speed*Math.cos(Math.toRadians(_angle));
+				
+				if(rightInclination && !_enter)
+				{
+					_enter = true;
+
+					Object args[] = {(Object) 3}; 
+					
+					setChanged();
+					notifyObservers(args);
+				}
+				if(leftInclination && !_end)
+				{
+					_end = true;
+				}
 			}
 		}
 		
@@ -81,5 +157,15 @@ class Train extends Observable
 		
 		setChanged();
 		notifyObservers(args);
+	}
+	
+	public boolean getCheckPermission()
+	{
+		return _checkingPermission;
+	}
+	
+	public boolean getRight()
+	{
+		return _right;
 	}
 }

@@ -80,12 +80,19 @@ public class RailroadView extends JPanel implements Observer
 			System.out.println("ERRO ao carregar imagem");
 		}
 		
-		JButton simulateButton = new JButton("Simular");
-		simulateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		simulateButton.addActionListener(e -> {
-			Facade.getInstance().Simulate();
+		JButton addLeftButton = new JButton("Add esquerda");
+		addLeftButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		addLeftButton.addActionListener(e -> {
+			Facade.getInstance().AddLeft();
 		});
-		add(simulateButton);
+		add(addLeftButton);
+		
+		JButton addRightButton = new JButton("Add direita");
+		addRightButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		addRightButton.addActionListener(e -> {
+			Facade.getInstance().AddRight();
+		});
+		add(addRightButton);
 		
 		Facade.getInstance().setObserver(this);
 		_trainPositions = new HashMap<Integer, int[]>();
@@ -138,17 +145,17 @@ public class RailroadView extends JPanel implements Observer
 		
 		switch((int)args[0])
 		{
-		case 0:
-			Integer n = (Integer)args[1];
-			int[] pos = (int[])args[2];
-			Color color = (Color)args[3];
-
-			_trainPositions.put(n, pos);
-			_trainColors.put(n, color);
-			
-			break;
-		default:
-			break;
+			case 0:
+				Integer n = (Integer)args[1];
+				int[] pos = (int[])args[2];
+				Color color = (Color)args[3];
+	
+				_trainPositions.put(n, pos);
+				_trainColors.put(n, color);
+				
+				break;
+			default:
+				break;
 		}
 		
 		repaint();

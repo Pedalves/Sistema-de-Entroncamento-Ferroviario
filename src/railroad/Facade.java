@@ -25,9 +25,14 @@ public class Facade
 		return _facade;
 	}
 	
-	public void Simulate()
-	{
-		_controller.Simulate();
+	public void AddRight()
+	{	
+		_controller.AddRight();
+	}
+	
+	public void AddLeft()
+	{	
+		_controller.AddLeft();
 	}
 	
 	public void setObserver(Observer observer)
