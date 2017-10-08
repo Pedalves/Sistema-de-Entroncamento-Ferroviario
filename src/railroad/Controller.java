@@ -44,27 +44,66 @@ class Controller implements Observer
             public void actionPerformed(ActionEvent evt) {
         		for(Train t : _trains)
         		{
-        			if(t.getCheckPermission())
-        			{
-        				if(t.getRight())
-        				{
-        					if(_semaphoreState.Status() != "ClosedOpen")
-        					{
-                    			t.Move();
-        					}
-        				}
-        				else
-        				{
-        					if(_semaphoreState.Status() != "OpenClosed")
-        					{
-                    			t.Move();
-        					}
-        				}
-        			}
-        			else
-        			{
-            			t.Move();	
-        			}
+    				// Left
+    				if(t.isMovingRight())
+    				{
+    					// Check Collision
+    					for(Train t_colission : _trains)
+						{
+							if(t_colission.isMovingRight())
+	        				{
+								if((t.getPos()[0] - t_colission.getPos()[0]) < 50)
+								{
+									// If speed is greater you need to reduce it
+									if(t.getSpeed() < t_colission.getSpeed())
+									{
+										t_colission.setSpeed(t.getSpeed());
+									}
+								}
+	        				}
+						}
+    					
+    					// Check if it need to stop
+    					if(_semaphoreState.Status() != "ClosedOpen")
+    					{
+    						t.go();
+    					}
+    					else if(t.getCheckPermission())
+    					{
+    						t.stop();
+    					}
+    				}
+    				else
+    				{
+    					// Check Collision
+    					for(Train t_colission : _trains)
+						{
+							if(!t_colission.isMovingRight())
+	        				{
+								if(t.getPos()[0] < t_colission.getPos()[0] && (t_colission.getPos()[0] - t.getPos()[0]) < 5)
+								{
+									// If speed is greater you need to reduce it
+									if(t.getSpeed() < t_colission.getSpeed())
+									{
+										t_colission.setSpeed(t.getSpeed());
+									}
+								}
+	        				}
+						}
+    					
+    					// Check if it need to stop
+    					if(_semaphoreState.Status() != "OpenClosed")
+    					{
+    						t.go();
+    					}
+    					else if(t.getCheckPermission())
+    					{
+    						t.stop();
+    					}
+    				}
+    				
+    				// Move
+					t.Move();
         		}
             }
         };
@@ -75,12 +114,48 @@ class Controller implements Observer
 	
 	public void AddRight()
 	{	
-		_trains.add(new Train(false, _trains.size(),_observers));	
+		// Check if there's space for a new train
+		if(_canAdd(1))
+		{
+			_trains.add(new Train(false, _trains.size(),_observers));
+		}
 	}
 	
 	public void AddLeft()
 	{	
-		_trains.add(new Train(true, _trains.size(),_observers));
+		// Check if there's space for a new train
+		if(_canAdd(0))
+		{
+			_trains.add(new Train(true, _trains.size(),_observers));
+		}
+	}
+	
+	// 0 -> Left | 1-> Right
+	private boolean _canAdd(int side)
+	{
+		for(Train t: _trains)
+		{
+			// If there's no space for a new train return false
+			switch(side)
+			{
+			case 0: // Left
+				if(t.isMovingRight() && t.getPos()[0] <= 36)
+				{
+					return false;
+				}
+				break;
+			case 1: // Right
+				if(!t.isMovingRight() && t.getPos()[0] >= 1000)
+				{
+					return false;
+				}
+				break;
+			default:
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public void setObserver(Observer observer)

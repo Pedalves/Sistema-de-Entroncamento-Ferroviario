@@ -10,6 +10,7 @@ class Train extends Observable
 	private int[] _pos;
 	private Integer _id;
 	private int _speed = 20;
+	private int _inititalSpeed = 20;
 	
 	private boolean _right;
 	private boolean _normalMove;
@@ -178,8 +179,33 @@ class Train extends Observable
 		return _checkingPermission;
 	}
 	
-	public boolean getRight()
+	public boolean isMovingRight()
 	{
 		return _right;
+	}
+	
+	public int[] getPos()
+	{
+		return _pos;
+	}
+	
+	public int getSpeed()
+	{
+		return _speed;
+	}
+	
+	public void setSpeed(int speed)
+	{
+		_speed = speed;
+	}
+	
+	public void stop()
+	{
+		_speed = 0;
+	}
+	
+	public void go()
+	{
+		_speed = _inititalSpeed;
 	}
 }
