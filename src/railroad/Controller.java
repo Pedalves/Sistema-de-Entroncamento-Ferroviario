@@ -48,29 +48,29 @@ class Controller implements Observer
     				if(t.isMovingRight())
     				{
     					// Check Collision
-    					for(Train t_colission : _trains)
+    					for(Train t_collision : _trains)
 						{
-							if(t_colission.isMovingRight())
+							if(t_collision.isMovingRight())
 	        				{
-								if((t.getPos()[0] - t_colission.getPos()[0]) < 50)
+								if((t.getPos()[0] - t_collision.getPos()[0]) < 50)
 								{
 									// If speed is greater you need to reduce it
-									if(t.getSpeed() < t_colission.getSpeed())
+									if(t.getSpeed() < t_collision.getSpeed())
 									{
-										t_colission.setSpeed(t.getSpeed());
+										t_collision.setSpeed(t.getSpeed());
 									}
 								}
 	        				}
 						}
     					
     					// Check if it need to stop
-    					if(_semaphoreState.Status() != "ClosedOpen")
-    					{
-    						t.go();
-    					}
-    					else if(t.getCheckPermission())
+    					if(t.getCheckPermission() && _semaphoreState.Status() == "ClosedOpen")
     					{
     						t.stop();
+    					}
+    					else 
+    					{
+    						t.go();
     					}
     				}
     				else
@@ -80,7 +80,7 @@ class Controller implements Observer
 						{
 							if(!t_colission.isMovingRight())
 	        				{
-								if(t.getPos()[0] < t_colission.getPos()[0] && (t_colission.getPos()[0] - t.getPos()[0]) < 5)
+								if(t.getPos()[0] < t_colission.getPos()[0] && (t_colission.getPos()[0] - t.getPos()[0]) < 50)
 								{
 									// If speed is greater you need to reduce it
 									if(t.getSpeed() < t_colission.getSpeed())
@@ -92,13 +92,13 @@ class Controller implements Observer
 						}
     					
     					// Check if it need to stop
-    					if(_semaphoreState.Status() != "OpenClosed")
-    					{
-    						t.go();
-    					}
-    					else if(t.getCheckPermission())
+    					if(t.getCheckPermission() && _semaphoreState.Status() == "OpenClosed")
     					{
     						t.stop();
+    					}
+    					else 
+    					{
+    						t.go();
     					}
     				}
     				
