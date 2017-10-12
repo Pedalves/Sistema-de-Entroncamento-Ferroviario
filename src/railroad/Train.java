@@ -10,7 +10,7 @@ class Train extends Observable
 	private int[] _pos;
 	private Integer _id;
 	private float _speed;
-	private float _inititalSpeed;
+	private float _initialSpeed;
 	
 	private boolean _right;
 	private boolean _normalMove;
@@ -59,7 +59,7 @@ class Train extends Observable
 		int screenDistance = 1000;
 		vel = speed/conversion;
 		vel /= timer;
-		_speed = _inititalSpeed = ((vel*screenWidth)/screenDistance);
+		_speed = _initialSpeed = ((vel*screenWidth)/screenDistance);
 	}
 	
 	public void Move()
@@ -215,6 +215,6 @@ class Train extends Observable
 	
 	public void go()
 	{
-		_speed = _inititalSpeed;
+		_speed = _initialSpeed;
 	}
 }
