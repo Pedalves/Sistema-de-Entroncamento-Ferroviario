@@ -54,11 +54,11 @@ class Train extends Observable
 		
 		float conversion = 3.6f;
 		float vel = 0;
-		float timer = 5;
+		float timer = 2;
 		int screenWidth = 1078;
 		int screenDistance = 1000;
 		vel = speed/conversion;
-		//vel /= timer;
+		vel /= timer;
 		_speed = _inititalSpeed = ((vel*screenWidth)/screenDistance);
 	}
 	
