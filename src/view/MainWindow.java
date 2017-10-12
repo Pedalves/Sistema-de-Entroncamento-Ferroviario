@@ -18,6 +18,7 @@ public class MainWindow
 		
 		_window.setContentPane(new RailroadView());
 		_window.setVisible(true);
+		_window.setResizable(false);
 	}
 	
 	public static void main(String[] args)
