@@ -9,8 +9,8 @@ class Train extends Observable
 {
 	private int[] _pos;
 	private Integer _id;
-	private int _speed = 20;
-	private int _inititalSpeed = 20;
+	private float _speed;
+	private float _inititalSpeed;
 	
 	private boolean _right;
 	private boolean _normalMove;
@@ -28,7 +28,7 @@ class Train extends Observable
 	
 	private boolean _checkingPermission;
 	
-	public Train(boolean right, Integer id, List<Observer> observers)
+	public Train(boolean right, Integer id, List<Observer> observers, int speed)
 	{
 		for(Observer o : observers)
 		{
@@ -51,6 +51,15 @@ class Train extends Observable
 		
 		_normalMove = true;
 		_enter = _end = _checkingPermission = false;
+		
+		float conversion = 3.6f;
+		float vel = 0;
+		float timer = 5;
+		int screenWidth = 1078;
+		int screenDistance = 1000;
+		vel = speed/conversion;
+		//vel /= timer;
+		_speed = _inititalSpeed = ((vel*screenWidth)/screenDistance);
 	}
 	
 	public void Move()
@@ -189,12 +198,12 @@ class Train extends Observable
 		return _pos;
 	}
 	
-	public int getSpeed()
+	public float getSpeed()
 	{
 		return _speed;
 	}
 	
-	public void setSpeed(int speed)
+	public void setSpeed(float speed)
 	{
 		_speed = speed;
 	}

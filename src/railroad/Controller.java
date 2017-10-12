@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -16,6 +17,8 @@ class Controller implements Observer
 	private List<Observer> _observers;
 	private SemaphoreState _semaphoreState;
 	private Semaphore _semaphore;
+	private int[] _speeds;
+	private Random _rand;
 		
 	private Controller()
 	{
@@ -24,6 +27,9 @@ class Controller implements Observer
 		
 		_observers = new ArrayList<Observer>();
 		_observers.add(this);
+		
+		_speeds = new int[]{60,80,100};
+		_rand = new Random();
 				
 		setupTimer();
 	}
@@ -121,7 +127,7 @@ class Controller implements Observer
 		// Check if there's space for a new train
 		if(_canAdd(1))
 		{
-			_trains.add(new Train(false, _trains.size(),_observers));
+			_trains.add(new Train(false, _trains.size(),_observers,_speeds[_rand.nextInt(3)]));
 		}
 	}
 	
@@ -130,7 +136,7 @@ class Controller implements Observer
 		// Check if there's space for a new train
 		if(_canAdd(0))
 		{
-			_trains.add(new Train(true, _trains.size(),_observers));
+			_trains.add(new Train(true, _trains.size(),_observers,_speeds[_rand.nextInt(3)]));
 		}
 	}
 	
