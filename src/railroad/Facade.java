@@ -25,14 +25,14 @@ public class Facade
 		return _facade;
 	}
 	
-	public void AddRight()
+	public void AddRight(int speed)
 	{	
-		_controller.AddRight();
+		_controller.AddRight(speed);
 	}
 	
-	public void AddLeft()
+	public void AddLeft(int speed)
 	{	
-		_controller.AddLeft();
+		_controller.AddLeft(speed);
 	}
 	
 	public void setObserver(Observer observer)

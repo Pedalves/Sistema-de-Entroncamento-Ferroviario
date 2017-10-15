@@ -80,20 +80,6 @@ public class RailroadView extends JPanel implements Observer
 			System.out.println("ERRO ao carregar imagem");
 		}
 		
-		JButton addLeftButton = new JButton("Add esquerda");
-		addLeftButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		addLeftButton.addActionListener(e -> {
-			Facade.getInstance().AddLeft();
-		});
-		add(addLeftButton);
-		
-		JButton addRightButton = new JButton("Add direita");
-		addRightButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		addRightButton.addActionListener(e -> {
-			Facade.getInstance().AddRight();
-		});
-		add(addRightButton);
-		
 		Facade.getInstance().setObserver(this);
 		_trainPositions = new HashMap<Integer, int[]>();
 		_trainColors = new HashMap<Integer, Color>();

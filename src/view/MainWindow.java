@@ -24,6 +24,7 @@ public class MainWindow
 	public static void main(String[] args)
 	{
 		MainWindow w = new MainWindow();
+		SpeedWindow s = new SpeedWindow();
 	}
 
 }
