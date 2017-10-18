@@ -208,6 +208,11 @@ class Train extends Observable
 		_speed = speed;
 	}
 	
+	public float getMaxSpeed()
+	{
+		return _initialSpeed;
+	}
+	
 	public void stop()
 	{
 		_speed = 0;

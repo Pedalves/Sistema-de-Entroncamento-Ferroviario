@@ -15,7 +15,6 @@ public class SemaphoreClosedOpen extends SemaphoreState
 		count--;
 		if(count <= 0)
 		{
-			System.out.println("Abrindo esquerda");
 			return new SemaphoreOpenOpen();
 		}
 		else
@@ -40,7 +39,6 @@ public class SemaphoreClosedOpen extends SemaphoreState
 	@Override
 	public SemaphoreState CloseRight() 
 	{
-		System.out.println("Nao deveria entrar aqui");
 		return null;
 	}
 

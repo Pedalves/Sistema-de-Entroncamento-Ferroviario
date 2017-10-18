@@ -47,18 +47,27 @@ class Controller implements Observer
     				// Left
     				if(t.isMovingRight())
     				{
+    					boolean collision = false;
+    					
     					// Check Collision
     					for(Train t_collision : _trains)
 						{
 							if(t_collision.isMovingRight())
 	        				{
-								if(t.getPos()[0] > t_collision.getPos()[0] && (t.getPos()[0] - t_collision.getPos()[0]) < 50)
+								// If collision
+								if(t.getPos()[0] >= t_collision.getPos()[0] && (t.getPos()[0] - t_collision.getPos()[0]) <= 50 && (t.getPos()[0] < 1078))
 								{
 									// If speed is greater you need to reduce it
 									if(t.getSpeed() < t_collision.getSpeed())
 									{
 										t_collision.setSpeed(t.getSpeed());
+										collision = true;
 									}
+								}
+								// If not Collision reset speed
+								else if(!collision)
+								{
+									t_collision.setSpeed(t_collision.getMaxSpeed());
 								}
 	        				}
 						}
@@ -77,20 +86,30 @@ class Controller implements Observer
     					}
 
     				}
+    				// Right
     				else
     				{
+    					boolean collision = false;
+    					
     					// Check Collision
     					for(Train t_collision : _trains)
 						{
 							if(!t_collision.isMovingRight())
 	        				{
-								if(t.getPos()[0] < t_collision.getPos()[0] && (t_collision.getPos()[0] - t.getPos()[0]) < 50)
+								// If collision
+								if(t.getPos()[0] <= t_collision.getPos()[0] && (t_collision.getPos()[0] - t.getPos()[0]) <= 50 && (t.getPos()[0] > 0))
 								{
 									// If speed is greater you need to reduce it
 									if(t.getSpeed() < t_collision.getSpeed())
 									{
 										t_collision.setSpeed(t.getSpeed());
+										collision = true;
 									}
+								}
+								// If not Collision reset speed
+								else if(!collision)
+								{
+									t_collision.setSpeed(t_collision.getMaxSpeed());
 								}
 	        				}
 						}
