@@ -63,17 +63,7 @@ class Train extends Observable
 	}
 	
 	public void Move()
-	{
-		if((_right && _pos[0] >= 1150) || (!_right && _pos[0] <= -200))
-		{
-			Object args[] = {(Object) 5, (Object) this}; 
-			
-			setChanged();
-			notifyObservers(args);
-			
-			return;
-		}
-		
+	{	
 		boolean leftInclination = (_pos[0] > _leftInclinationX && _pos[0] < _leftBridgeX);
 		boolean rightInclination = (_pos[0] > _rightBridgeX && _pos[0] < _rightInclinationX);
 		

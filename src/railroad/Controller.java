@@ -46,12 +46,11 @@ class Controller implements Observer
         		{
     				// Left
     				if(t.isMovingRight())
-    				{
-    					boolean collision = false;
-    					
+    				{	
     					// Check Collision
     					for(Train t_collision : _trains)
 						{
+    						boolean collision = false;
 							if(t_collision.isMovingRight())
 	        				{
 								// If collision
@@ -65,7 +64,7 @@ class Controller implements Observer
 									}
 								}
 								// If not Collision reset speed
-								else if(!collision)
+								else if(!collision && t_collision.getSpeed()!= 0)
 								{
 									t_collision.setSpeed(t_collision.getMaxSpeed());
 								}
@@ -88,12 +87,12 @@ class Controller implements Observer
     				}
     				// Right
     				else
-    				{
-    					boolean collision = false;
-    					
+    				{    					
     					// Check Collision
     					for(Train t_collision : _trains)
 						{
+    						boolean collision = false;
+    						
 							if(!t_collision.isMovingRight())
 	        				{
 								// If collision
@@ -107,7 +106,7 @@ class Controller implements Observer
 									}
 								}
 								// If not Collision reset speed
-								else if(!collision)
+								else if(!collision && t_collision.getSpeed()!= 0)
 								{
 									t_collision.setSpeed(t_collision.getMaxSpeed());
 								}
@@ -226,13 +225,6 @@ class Controller implements Observer
 				{
 					_semaphoreState = st;
 				}
-				break;
-			case 5:
-				Train t = (Train)args[1];
-//				if(_trains.contains(t))
-//				{
-//					_trains.remove(t);
-//				}
 				break;
 			default:
 				break;

@@ -15,7 +15,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import railroad.Facade;
@@ -25,10 +24,8 @@ public class RailroadView extends JPanel implements Observer
 	private BufferedImage bgImage;
 	
 	private final int _leftInclinationX = 145;
-	private final int _leftBridgeX = 320;
 	
 	private final int _rightInclinationX = 940;
-	private final int _rightBridgeX = 790;
 	
 	private Color _leftSemaphore;
 	private Color _rightSemaphore;

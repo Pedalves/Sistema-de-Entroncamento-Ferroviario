@@ -30,7 +30,7 @@ public class SpeedWindow {
 	{
 		JPanel panel = new JPanel();
 		
-		// 60
+		/************************ 60 **************************/
 		
 		JButton left60Button = new JButton("Add 60 esquerda");
 		left60Button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -46,7 +46,7 @@ public class SpeedWindow {
 		});
 		panel.add(right60Button);
 		
-		// 80
+		/************************ 80 **************************/
 		
 		JButton left80Button = new JButton("Add 80 esquerda");
 		left80Button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -62,7 +62,7 @@ public class SpeedWindow {
 		});
 		panel.add(right80Button);
 		
-		// 100
+		/************************ 100 **************************/
 				
 		JButton left100Button = new JButton("Add 100 esquerda");
 		left100Button.setAlignmentX(Component.CENTER_ALIGNMENT);
