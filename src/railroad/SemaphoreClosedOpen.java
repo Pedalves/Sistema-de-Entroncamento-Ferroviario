@@ -39,6 +39,7 @@ public class SemaphoreClosedOpen extends SemaphoreState
 	@Override
 	public SemaphoreState CloseRight() 
 	{
+		System.out.println("Tentando fechar direita, nao deveria");
 		return null;
 	}
 
