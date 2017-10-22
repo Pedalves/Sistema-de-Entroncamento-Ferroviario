@@ -27,6 +27,7 @@ class Train extends Observable
 	
 	private boolean _enter;
 	private boolean _end;
+	private boolean _stillNeedToUpdate = false;
 	
 	private boolean _checkingPermission;
 	
@@ -136,6 +137,13 @@ class Train extends Observable
 					setChanged();
 					notifyObservers(args);
 				}
+				if(_stillNeedToUpdate && _speed == 0)
+				{	
+					Object args[] = {(Object) 1}; 
+					
+					setChanged();
+					notifyObservers(args);
+				}
 			}
 			else if(rightInclination)
 			{
@@ -150,7 +158,7 @@ class Train extends Observable
 		}
 		else // Right to Left
 		{
-			if(_pos[0] > _rightInclinationX && _pos[0] < _rightInclinationX + 100)
+			if(_pos[0] > _rightInclinationX -100 && _pos[0] < _rightInclinationX + 100)
 			{
 				_checkingPermission = true;
 			}
@@ -182,6 +190,13 @@ class Train extends Observable
 				{
 					_enter = true;
 
+					Object args[] = {(Object) 3}; 
+					
+					setChanged();
+					notifyObservers(args);
+				}
+				if(_stillNeedToUpdate && _speed == 0)
+				{	
 					Object args[] = {(Object) 3}; 
 					
 					setChanged();
@@ -244,5 +259,10 @@ class Train extends Observable
 	public void go()
 	{
 		_speed = _initialSpeed;
+	}
+	
+	public void stillNeedToUpdate()
+	{
+		_stillNeedToUpdate = true;
 	}
 }

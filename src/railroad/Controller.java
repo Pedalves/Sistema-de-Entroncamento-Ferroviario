@@ -196,10 +196,14 @@ class Controller implements Observer
 		{
 			case 1:
 				st = _semaphoreState.CloseRight();
-				
+
 				if(st != null)
 				{
 					_semaphoreState = st;
+				}
+				else
+				{
+					((Train)o).stillNeedToUpdate();
 				}
 				break;
 			case 2:
@@ -216,6 +220,10 @@ class Controller implements Observer
 				if(st != null)
 				{
 					_semaphoreState = st;
+				}
+				else
+				{
+					((Train)o).stillNeedToUpdate();
 				}
 				break;
 			case 4:

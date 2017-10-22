@@ -2,7 +2,6 @@ package railroad;
 
 public class SemaphoreOpenClosed extends SemaphoreState 
 {
-
 	@Override
 	public String Status()
 	{
@@ -32,7 +31,7 @@ public class SemaphoreOpenClosed extends SemaphoreState
 	@Override
 	public SemaphoreState CloseLeft()
 	{
-		System.out.println("Tentando fechar esquerda, nao deveria");
+		// System.out.println("Tentando fechar esquerda, nao deveria");
 		return null;
 	}
 
