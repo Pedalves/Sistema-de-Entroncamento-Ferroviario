@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -30,7 +29,7 @@ public class RailroadView extends JPanel implements Observer
 	private Color _leftSemaphore;
 	private Color _rightSemaphore;
 	
-	private HashMap<Integer, int[]> _trainPositions;
+	private HashMap<Integer, double[]> _trainPositions;
 	private HashMap<Integer, Color> _trainColors;
 		
 	public RailroadView()
@@ -78,7 +77,7 @@ public class RailroadView extends JPanel implements Observer
 		}
 		
 		Facade.getInstance().setObserver(this);
-		_trainPositions = new HashMap<Integer, int[]>();
+		_trainPositions = new HashMap<Integer, double[]>();
 		_trainColors = new HashMap<Integer, Color>();
 	}
 	
@@ -115,7 +114,7 @@ public class RailroadView extends JPanel implements Observer
 		for(Integer t : _trainPositions.keySet())
 		{
 			g2d.setPaint(_trainColors.get(t));			
-			g2d.fill(new Ellipse2D.Double(_trainPositions.get(t)[0], _trainPositions.get(t)[1], 34, 34));
+			g2d.fill(new Ellipse2D.Double(_trainPositions.get(t)[0], _trainPositions.get(t)[1], 24, 24));
 		}
 		
 		/*************************************************************/
@@ -130,7 +129,7 @@ public class RailroadView extends JPanel implements Observer
 		{
 			case 0:
 				Integer n = (Integer)args[1];
-				int[] pos = (int[])args[2];
+				double[] pos = (double[])args[2];
 				Color color = (Color)args[3];
 	
 				_trainPositions.put(n, pos);
