@@ -2,8 +2,6 @@ package railroad;
 
 import java.util.Observer;
 
-import view.RailroadView;
-
 public class Facade 
 {
 	static private Facade _facade;

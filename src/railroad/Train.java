@@ -7,7 +7,7 @@ import java.util.Observer;
 
 class Train extends Observable
 {
-	private int[] _pos;
+	private double[] _pos;
 	private Integer _id;
 	private float _speed;
 	private float _initialSpeed;
@@ -15,13 +15,15 @@ class Train extends Observable
 	private boolean _right;
 	private boolean _normalMove;
 	
-	private final int _leftInclinationX = 137;
-	private final int _rightInclinationX = 940;
+	private int _leftInclinationX;
+	private int _rightInclinationX;
 	
-	private final int _leftBridgeX = 305;
-	private final int _rightBridgeX = 790;
+	private int _leftBridgeX;
+	private int _rightBridgeX;
 	
-	private final int _angle = 73;
+	private double _angleUp;
+	private double _angleDown;
+	
 	
 	private boolean _enter;
 	private boolean _end;
@@ -35,18 +37,36 @@ class Train extends Observable
 			addObserver(o);	
 		}
 		_id = id;
-		_pos = new int[2];
+		_pos = new double[2];
 		_right = right;
 		
 		if(_right)
 		{
+			_leftInclinationX = 140;
+			_rightInclinationX = 923;
+			
+			_leftBridgeX = 300;
+			_rightBridgeX = 778;
+			
+			_angleUp = 13f;
+			_angleDown = 19.7f;
+			
 			_pos[0] = 0;
-			_pos[1] = 214;
+			_pos[1] = 226;
 		}
 		else
 		{
+			_leftInclinationX = 139;
+			_rightInclinationX = 940;
+			
+			_leftBridgeX = 325;
+			_rightBridgeX = 799;
+			
+			_angleUp = 13.2f;
+			_angleDown = 17f;
+			
 			_pos[0] = 1040;
-			_pos[1] = 221;
+			_pos[1] = 226;
 		}
 		
 		_normalMove = true;
@@ -60,6 +80,7 @@ class Train extends Observable
 		vel = speed/conversion;
 		vel /= timer;
 		_speed = _initialSpeed = ((vel*screenWidth)/screenDistance);
+		
 	}
 	
 	public void Move()
@@ -76,7 +97,7 @@ class Train extends Observable
 			_normalMove = true;
 		}
 		
-		if(_right)
+		if(_right) // Left to Right
 		{
 			if(_pos[0] < _leftInclinationX && _pos[0] > _leftInclinationX - 100)
 			{
@@ -87,7 +108,7 @@ class Train extends Observable
 				_checkingPermission = false;
 			}
 			
-			if(_normalMove)
+			if(_normalMove) // Straight
 			{
 				_pos[0] += _speed;
 				
@@ -101,12 +122,12 @@ class Train extends Observable
 					notifyObservers(args);
 				}
 			}
-			else
+			else if(leftInclination) // Inclined enter
 			{
-				_pos[0] += _speed*Math.sin(Math.toRadians(_angle));
-				_pos[1] += _speed*Math.cos(Math.toRadians(_angle));
+				_pos[0] += _speed*Math.cos(Math.toRadians(_angleUp));
+				_pos[1] += _speed*Math.sin(Math.toRadians(_angleUp));
 				
-				if(leftInclination && !_enter)
+				if(!_enter)
 				{
 					_enter = true;
 
@@ -115,13 +136,19 @@ class Train extends Observable
 					setChanged();
 					notifyObservers(args);
 				}
-				if(rightInclination && !_end)
+			}
+			else if(rightInclination)
+			{
+				_pos[0] += _speed*Math.cos(Math.toRadians(_angleDown));
+				_pos[1] += _speed*Math.sin(Math.toRadians(_angleDown));
+				
+				if(!_end)
 				{
 					_end = true;
 				}
 			}
 		}
-		else
+		else // Right to Left
 		{
 			if(_pos[0] > _rightInclinationX && _pos[0] < _rightInclinationX + 100)
 			{
@@ -132,7 +159,7 @@ class Train extends Observable
 				_checkingPermission = false;
 			}
 			
-			if(_normalMove)
+			if(_normalMove) // Straight
 			{
 				_pos[0] -= _speed;
 				
@@ -146,12 +173,12 @@ class Train extends Observable
 					notifyObservers(args);
 				}
 			}
-			else
+			else if(rightInclination)
 			{
-				_pos[0] -= _speed*Math.sin(Math.toRadians(_angle));
-				_pos[1] += _speed*Math.cos(Math.toRadians(_angle));
+				_pos[0] -= _speed*Math.cos(Math.toRadians(_angleUp));
+				_pos[1] += _speed*Math.sin(Math.toRadians(_angleUp));
 				
-				if(rightInclination && !_enter)
+				if(!_enter)
 				{
 					_enter = true;
 
@@ -160,7 +187,13 @@ class Train extends Observable
 					setChanged();
 					notifyObservers(args);
 				}
-				if(leftInclination && !_end)
+			}
+			else if(leftInclination)
+			{
+				_pos[0] -= _speed*Math.cos(Math.toRadians(_angleDown));
+				_pos[1] += _speed*Math.sin(Math.toRadians(_angleDown));
+				
+				if(!_end)
 				{
 					_end = true;
 				}
@@ -183,7 +216,7 @@ class Train extends Observable
 		return _right;
 	}
 	
-	public int[] getPos()
+	public double[] getPos()
 	{
 		return _pos;
 	}

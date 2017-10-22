@@ -54,7 +54,7 @@ class Controller implements Observer
 							if(t_collision.isMovingRight())
 	        				{
 								// If collision
-								if(t.getPos()[0] >= t_collision.getPos()[0] && (t.getPos()[0] - t_collision.getPos()[0]) <= 50 && (t.getPos()[0] < 1078))
+								if(t.getPos()[0] >= t_collision.getPos()[0] && (t.getPos()[0] - t_collision.getPos()[0]) <= 30 && (t.getPos()[0] < 1078))
 								{
 									// If speed is greater you need to reduce it
 									if(t.getSpeed() < t_collision.getSpeed())
@@ -96,7 +96,7 @@ class Controller implements Observer
 							if(!t_collision.isMovingRight())
 	        				{
 								// If collision
-								if(t.getPos()[0] <= t_collision.getPos()[0] && (t_collision.getPos()[0] - t.getPos()[0]) <= 50 && (t.getPos()[0] > 0))
+								if(t.getPos()[0] <= t_collision.getPos()[0] && (t_collision.getPos()[0] - t.getPos()[0]) <= 30 && (t.getPos()[0] > 0))
 								{
 									// If speed is greater you need to reduce it
 									if(t.getSpeed() < t_collision.getSpeed())
@@ -161,13 +161,13 @@ class Controller implements Observer
 			switch(side)
 			{
 			case 0: // Left
-				if(t.isMovingRight() && t.getPos()[0] <= 36)
+				if(t.isMovingRight() && t.getPos()[0] <= 26)
 				{
 					return false;
 				}
 				break;
 			case 1: // Right
-				if(!t.isMovingRight() && t.getPos()[0] >= 1000)
+				if(!t.isMovingRight() && t.getPos()[0] >= 1010)
 				{
 					return false;
 				}
